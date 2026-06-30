@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindfulSpace - ศิลปะแห่งการนั่งสมาธิ</title>
+    <style>
+        /* --- CSS Reset & Variables --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-dark: #3E2723;      /* น้ำตาลเข้มอบอุ่น */
+            --bg-medium: #4E342E;    /* น้ำตาลกลาง */
+            --bg-light: #D7CCC8;     /* น้ำตาลอ่อน/ครีม */
+            --bg-soft: #F5F5F5;      /* ขาวนวล */
+            --text-main: #3E2723;    /* ตัวหนังสือหลัก */
+            --text-light: #795548;   /* ตัวหนังสือรอง */
+            --accent: #8D6E63;       /* สีน้ำตาลอมส้ม/ทอง */
+        }
+
+        body {
+            background-color: var(--bg-soft);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(62, 39, 35, 0.95);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav .logo {
+            color: var(--bg-light);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            color: var(--bg-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #fff;
+        }
+
+        /* --- Hero Section --- */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(62, 39, 35, 0.7), rgba(62, 39, 35, 0.85)), 
+                        url('https://unsplash.com') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 1rem;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            color: var(--bg-light);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            background-color: var(--accent);
+            color: #fff;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--bg-light);
+            color: var(--bg-dark);
+            transform: translateY(-2px);
+        }
+
+        /* --- Main Content Layout --- */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            color: var(--bg-dark);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+            margin: 0.5rem auto 0;
+        }
+
+        /* --- Intro Section --- */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .intro-img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* --- Steps Section --- */
+        #steps {
+            background-color: #EFEBE9;
+            max-width: 100%;
+        }
+
+        .steps-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            border-left: 5px solid var(--accent);
+        }
+
+        .step-number {
+            background-color: var(--bg-dark);
+            color: var(--bg-light);
+            font-size: 1.5rem;
+            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--bg-dark);
+        }
+
+        /* --- Practice Section (Timer) --- */
+        .timer-box {
+            background-color: var(--bg-dark);
+            color: #fff;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .timer-display {
+            font-size: 4.5rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            font-family: monospace;
+            color: var(--bg-light);
+        }
+
+        .breath-guide {
+            font-size: 1.2rem;
+            color: var(--bg-light);
+            margin-bottom: 1.5rem;
+            height: 30px;
+            font-style: italic;
+        }
+
+        .timer-controls button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .timer-controls button:hover {
+            background-color: var(--bg-light);
+            color: var(--bg-dark);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--bg-dark);
+            color: var(--bg-light);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            nav ul { display: none; } /* ซ่อนเมนูชั่วคราวบนมือถือเพื่อความเรียบง่าย */
+            .intro-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 2.5rem; }
+            .step-card { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">MindfulSpace</div>
+        <ul>
+            <li><a href="#home">หน้าแรก</a></li>
+            <li><a href="#about">ทำไมต้องฝึกสมาธิ</a></li>
+            <li><a href="#steps">5 ขั้นตอนการฝึก</a></li>
+            <li><a href="#practice">ห้องฝึกสมาธิ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home">
+        <h1>ค้นพบความสงบในใจคุณ</h1>
+        <p>หยุดความวุ่นวายภายนอก แล้วกลับมาอยู่กับลมหายใจปัจจุบัน เพื่อจิตใจที่เบิกบานและทรงพลัง</p>
+        <a href="#practice" class="btn">เริ่มฝึกสมาธิตอนนี้</a>
+    </header>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">วิทยาศาสตร์แห่งความสงบ</h2>
+        <div class="intro-grid">
+            <div>
+                <p>การนั่งสมาธิไม่ใช่เรื่องลี้ลับ แต่เป็นเครื่องมือสากลในการฝึกฝนจิตใจ ผลวิจัยทางระบบประสาทชี้ชัดว่าการทำสมาธิเป็นประจำช่วยลดขนาดของสมองส่วนอมิกดาลา (Amygdala) ซึ่งควบคุมความเครียด และเพิ่มความหนาแน่นของสมองส่วนหน้าซึ่งควบคุมสมาธิและการตัดสินใจ</p>
+                <br>
+                <p><strong>ประโยชน์หลัก 3 ประการ:</strong></p>
+                <p>• ลดฮอร์โมนคอร์ติซอล (ฮอร์โมนแห่งความเครียด)</p>
+                <p>• เพิ่มโฟกัสและความจำในการทำงานและการเรียน</p>
+                <p>• สร้างความเท่าทันอารมณ์ ลดการตอบสนองด้วยความโกรธ</p>
+            </div>
+            <div>
+                <img class="intro-img" src="https://unsplash.com" alt="Meditation benefits">
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Steps Section -->
+    <section id="steps">
+        <div class="steps-container">
+            <h2 class="section-title">5 ขั้นตอนเริ่มต้นอย่างละเอียด</h2>
+            
+            <!-- Step 1 -->
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>เลือกสถานที่และเวลาที่เหมาะสม</h3>
+                    <p>หามุมที่สงบเงียบ ไม่มีเสียงรบกวนฉับพลัน อุณหภูมิห้องกำลังพอดี ช่วงเวลาที่ดีที่สุดคือเช้าตรู่หลังตื่นนอน (เพื่อให้จิตใจแจ่มใสทั้งวัน) หรือก่อนนอน (เพื่อช่วยให้นอนหลับสบาย)</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>จัดท่าสมาธิที่สมดุล</h3>
+                    <p>นั่งขัดสมาธิบนพื้นหรือนั่งบนเก้าอี้โดยให้ฝ่าเท้าราบกับพื้น สิ่งสำคัญที่สุดคือ <strong>"หลังต้องตรงแต่ไม่เกร็ง"</strong> เพื่อให้ระบบทางเดินหายใจทำงานได้สะดวก วางมือบนหน้าตักในท่าที่สบาย ผ่อนคลายหัวไหล่</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card">
+                <div class="step-number">3</div>
